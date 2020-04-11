@@ -1,0 +1,19 @@
+{
+	"debug": true,
+	"server": {
+		"host": "localhost",
+		"port": "3000"
+	},
+	"context": {
+		"timeout": 2
+	},
+	"database": {
+		"driver": "mysql",
+		"host": "127.0.0.1",
+		"port": "3306",
+		"name": "go_react",
+		"user": "root",
+		"password": ""
+	},
+	"jwt_secret": "L04DB4L4NC3R"
+}
