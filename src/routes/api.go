@@ -27,8 +27,8 @@ func InitRoute(db *gorm.DB) *mux.Router {
 	r.HandleFunc("/v1/users", userHandler.HandleGetAll).Methods(http.MethodGet)
 	r.HandleFunc("/v1/users", userHandler.HandleStore).Methods(http.MethodPost, http.MethodOptions)
 	r.HandleFunc("/v1/users/{id}", userHandler.HandleGetByID).Methods(http.MethodGet)
-	r.HandleFunc("/v1/users/{id}", userHandler.HandleUpdate).Methods(http.MethodPost, http.MethodOptions)
-	r.HandleFunc("/v1/users/{id}/change-password", userHandler.HandleChangePassword).Methods(http.MethodPost, http.MethodOptions)
+	r.HandleFunc("/v1/users/{id}", userHandler.HandleUpdate).Methods(http.MethodPut, http.MethodOptions)
+	r.HandleFunc("/v1/users/{id}/change-password", userHandler.HandleChangePassword).Methods(http.MethodPut, http.MethodOptions)
 
 	return r
 }

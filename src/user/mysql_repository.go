@@ -16,7 +16,7 @@ func NewUserRepository(db *gorm.DB) *repo {
 
 func (r *repo) FindByAll(ctx context.Context) (u []*User, err error) {
 
-	result := r.DB.Select("first_name, last_name, email, status").Find(&u)
+	result := r.DB.Select("id, first_name, last_name, email, status").Find(&u)
 
 	switch result.Error {
 	case nil:
@@ -28,10 +28,10 @@ func (r *repo) FindByAll(ctx context.Context) (u []*User, err error) {
 	}
 }
 
-func (r *repo) FindByID(ctx context.Context, id int64) (u *User, err error) {
+func (r *repo) FindByID(ctx context.Context, id uint) (u *User, err error) {
 
 	u = &User{}
-	result := r.DB.Select("first_name, last_name, email, status").Where("id = ?", id).First(u)
+	result := r.DB.Select("id, first_name, last_name, email, status").Where("id = ?", id).First(u)
 
 	switch result.Error {
 	case nil:
@@ -61,7 +61,7 @@ func (r *repo) FindByEmail(ctx context.Context, email string) (u *User, err erro
 func (r *repo) Insert(ctx context.Context, user User) (u *User, err error) {
 
 	u = &User{}
-	result := r.DB.Create(&user)
+	result := r.DB.Create(&user).Scan(&u)
 
 	switch result.Error {
 	case nil:
@@ -71,9 +71,10 @@ func (r *repo) Insert(ctx context.Context, user User) (u *User, err error) {
 	}
 }
 
-func (r *repo) Update(ctx context.Context, id int64, user User) (u *User, err error) {
+func (r *repo) Update(ctx context.Context, id uint, user User) (u *User, err error) {
 
-	result := r.DB.Table("users").Where("id = ?", id).Update(map[string]interface{}{
+	u = &User{}
+	result := r.DB.Table("users").Where("id = ?", id).First(u).Update(map[string]interface{}{
 		"first_name": user.FirstName,
 		"last_name":  user.LastName,
 		"email":      user.Email,
@@ -90,9 +91,10 @@ func (r *repo) Update(ctx context.Context, id int64, user User) (u *User, err er
 	}
 }
 
-func (r *repo) ChangePassword(ctx context.Context, email, password string) (err error) {
+func (r *repo) ChangePassword(ctx context.Context, id uint, email, password string) (err error) {
 
-	result := r.DB.Table("users").Where("email = ?", email).Update(map[string]interface{}{
+	u := &User{}
+	result := r.DB.Table("users").Where("id = ? AND email = ?", id, email).Find(u).Update(map[string]interface{}{
 		"password": password,
 	})
 

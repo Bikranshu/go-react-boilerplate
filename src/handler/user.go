@@ -33,13 +33,13 @@ func (uh userHandler) HandleGetAll(w http.ResponseWriter, r *http.Request) {
 
 func (uh userHandler) HandleGetByID(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	id, err := strconv.ParseInt(params["id"], 10, 64)
+	id, err := strconv.ParseUint(params["id"], 10, 64)
 	if err != nil {
 		pkg.Wrap(err, w)
 		return
 	}
 
-	u, err := uh.service.FindByID(r.Context(), id)
+	u, err := uh.service.FindByID(r.Context(), uint(id))
 	if err != nil {
 		pkg.Wrap(err, w)
 		return
@@ -73,7 +73,7 @@ func (uh userHandler) HandleStore(w http.ResponseWriter, r *http.Request) {
 
 func (uh userHandler) HandleUpdate(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	id, err := strconv.ParseInt(params["id"], 10, 64)
+	id, err := strconv.ParseUint(params["id"], 10, 64)
 	if err != nil {
 		pkg.Wrap(err, w)
 		return
@@ -85,7 +85,7 @@ func (uh userHandler) HandleUpdate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	u, err := uh.service.Update(r.Context(), id, userModel)
+	u, err := uh.service.Update(r.Context(), uint(id), userModel)
 	if err != nil {
 		pkg.Wrap(err, w)
 		return
@@ -99,13 +99,20 @@ func (uh userHandler) HandleUpdate(w http.ResponseWriter, r *http.Request) {
 }
 
 func (uh userHandler) HandleChangePassword(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	id, err := strconv.ParseUint(params["id"], 10, 64)
+	if err != nil {
+		pkg.Wrap(err, w)
+		return
+	}
+
 	userModel := user.User{}
 	if err := json.NewDecoder(r.Body).Decode(&userModel); err != nil {
 		pkg.Wrap(err, w)
 		return
 	}
 
-	err := uh.service.ChangePassword(r.Context(), userModel.Email, userModel.Password)
+	err = uh.service.ChangePassword(r.Context(), uint(id), userModel.Email, userModel.Password)
 	if err != nil {
 		pkg.Wrap(err, w)
 		return

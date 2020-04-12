@@ -7,7 +7,7 @@ Go, React and MySQL Boilerplate
 - [Go](https://golang.org/) - Go programming language
 - [NodeJs](https://nodejs.org/en/)
 - [NPM](https://npmjs.org/) - Node package manager
-- [MySQL](https://www.mysql.com/downloads/) -Relational database management system (RDBMS)
+- [MySQL](https://www.mysql.com/downloads/) - Relational database management system (RDBMS)
 
 ### 2. Installation
 
@@ -18,11 +18,9 @@ On the command prompt run the following commands:
  $ git clone https://github.com/Bikranshu/go-react-boilerplate.git
  $ cd go-react-boilerplate
  $ cd src
- $ go get ./...  # download all remote packages
  $ go get github.com/{package-name}  # download a particular remote package # see 'go help packages' for details
- $ cp .env.example .env (edit it with your secret key and database information)
+ $ config.json (edit it with your secret key and database information)
  $ npm install
- $ npm run migrate
  ```
  Finally, start and build the application:
  
@@ -49,7 +47,7 @@ Navigate to http://localhost:3000/swagger for the API documentation.
 - JavaScript library for building UI - [React](https://facebook.github.io/react/)
 - Predictable state container - [Redux](http://redux.js.org/)
 - Declarative routing for React - [React-Router](https://reacttraining.com/react-router/)
-- React UI library - [Ant Design](https://ant.design/)
 - Promise based HTTP client - [Axios](https://github.com/mzabriskie/axios)
+- React UI library - [Ant Design](https://ant.design/)
 - Pluggable JavaScript Linter - [ESLint](http://eslint.org/)
 - Opinionated Code Formatter - [Prettier](https://www.npmjs.com/package/prettier)

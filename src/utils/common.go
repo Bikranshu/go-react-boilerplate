@@ -59,15 +59,15 @@ func DoesFileExist(filename string) bool {
 	return true
 }
 
-func GenerateSHA256Hash(plainText []byte) string {
+func GenerateSHA256Hash(plainText string) string {
 	hashVal := sha256.New()
-	hashVal.Write(plainText)
+	hashVal.Write([]byte(plainText))
 	return base64.URLEncoding.EncodeToString(hashVal.Sum(nil))
 }
 
-func VerifySHA256Hash(cipherText string, plainText []byte) bool {
+func VerifySHA256Hash(cipherText string, plainText string) bool {
 	hashVal := sha256.New()
-	hashVal.Write(plainText)
+	hashVal.Write([]byte(plainText))
 	cipherPlain := base64.URLEncoding.EncodeToString(hashVal.Sum(nil))
 	return strings.EqualFold(cipherPlain, cipherText)
 }
