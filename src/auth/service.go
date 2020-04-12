@@ -23,9 +23,7 @@ func (s service) Login(ctx context.Context, email, password string) (string stri
 	if err != nil {
 		return "", err
 	}
-	if res == nil {
-		return "", errors.New("User not found.")
-	}
+
 	if utils.ValidatePassword(res.Password, password) {
 		token, _ := utils.GenerateToken(email)
 		return token, nil

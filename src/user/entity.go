@@ -21,3 +21,10 @@ func (user *User) BeforeSave(scope *gorm.Scope) {
 		scope.SetColumn("password", pw)
 	}
 }
+
+//func (user *User) BeforeCreate(scope *gorm.Scope) (err error) {
+//	if err = scope.DB().Where(&User{Email: user.Email}).First(&user).Error; err == nil {
+//		return errors.New("User already exists in system.")
+//	}
+//	return nil
+//}

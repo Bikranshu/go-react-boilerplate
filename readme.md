@@ -28,6 +28,10 @@ On the command prompt run the following commands:
  $ go build
 ```
 
+Credential:
+- username: admin@admin.com
+- password: 1234
+
 ### 3. Usage
 
 URL : http://localhost:3000/
