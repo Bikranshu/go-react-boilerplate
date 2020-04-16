@@ -11,7 +11,7 @@ type repo struct {
 }
 
 func NewUserRepository(db *gorm.DB) *repo {
-	return &repo{DB: db,}
+	return &repo{DB: db}
 }
 
 func (r *repo) FindByAll(ctx context.Context) (u []*User, err error) {

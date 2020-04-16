@@ -46,7 +46,7 @@ Navigate to http://localhost:3000/swagger for the API documentation.
 - Password Hash & Salt - [bcrypt](https://godoc.org/golang.org/x/crypto/bcrypt)
 - Cross Origin Resource Sharing - [CORS](https://github.com/rs/cors)
 - URL router and dispatcher - [gorilla mux](https://github.com/gorilla/mux)
-- API Documentation - [Swagger](https://github.com/swaggo/gin-swagger)
+- API Documentation - [Swagger](https://github.com/go-swagger/go-swagger)
 - Modern build setup with no configuration - [Create React App](https://create-react-app.dev/)
 - JavaScript library for building UI - [React](https://facebook.github.io/react/)
 - Predictable state container - [Redux](http://redux.js.org/)

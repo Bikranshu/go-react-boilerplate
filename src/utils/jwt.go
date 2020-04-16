@@ -3,8 +3,8 @@ package utils
 import (
 	"errors"
 	"fmt"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/spf13/viper"
-	"github.com/vladimiroff/jwt-go"
 	"time"
 )
 

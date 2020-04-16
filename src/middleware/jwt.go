@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"fmt"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/spf13/viper"
-	"github.com/vladimiroff/jwt-go"
 	"net/http"
 	"strings"
 )
