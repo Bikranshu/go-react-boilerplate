@@ -30,6 +30,13 @@ func dbConnect(dbDriver string, dbUser string, dbPassword string, dbHost string,
 	return db, err
 }
 
+// @title Go React Boilerplate
+// @version 1.0.0
+// @description RESTful API description with Swagger
+
+// @host localhost:3000
+// @BasePath /
+
 func main() {
 	// DB binding
 	dbPrefix := "database"

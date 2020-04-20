@@ -12,7 +12,7 @@ func Authentication(mux http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 		publicEndpoints := []string{"/v1/auth/login", "/v1/auth/forgot"} //List of endpoints that doesn't require auth
-		requestPath := r.URL.Path                                        //current request path
+		requestPath := r.URL.Path                                                    //current request path
 
 		//check if request does not need authentication, serve the request if it doesn't need it
 		for _, value := range publicEndpoints {
@@ -29,7 +29,7 @@ func Authentication(mux http.Handler) http.Handler {
 		}
 
 		splitAuthorizationHeader := strings.Split(authorizationHeader, " ") //The token normally comes in format `Bearer {token-body}`, we check if the retrieved token matched this requirement
-		if len(splitAuthorizationHeader) != 2  || strings.ToLower(splitAuthorizationHeader[0]) != "bearer"{
+		if len(splitAuthorizationHeader) != 2 || strings.ToLower(splitAuthorizationHeader[0]) != "bearer" {
 			http.Error(w, "Authorization header format must be Bearer {token}.", http.StatusUnauthorized)
 			return
 		}
@@ -53,6 +53,5 @@ func Authentication(mux http.Handler) http.Handler {
 		}
 
 		mux.ServeHTTP(w, r) //proceed in the middleware chain
-
 	})
 }

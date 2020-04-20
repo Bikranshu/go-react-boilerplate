@@ -1,0 +1,44 @@
+basePath: /
+definitions:
+  handler.Credentials:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  handler.Login:
+    properties:
+      token:
+        type: string
+    type: object
+host: localhost:3000
+info:
+  contact: {}
+  description: RESTful API description with Swagger
+  license: {}
+  title: Go React Boilerplate
+  version: 1.0.0
+paths:
+  /v1/auth/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Credentials
+        in: body
+        name: Credentials
+        required: true
+        schema:
+          $ref: '#/definitions/handler.Credentials'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.Login'
+      summary: Authenticate a user and receive a JWT Token
+      tags:
+      - Authentication
+swagger: "2.0"
