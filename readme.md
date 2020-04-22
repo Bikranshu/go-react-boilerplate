@@ -29,7 +29,7 @@ On the command prompt run the following commands:
  $ go build 
 ```
 
-Credential:
+Import `users.sql` for default user:
 - username: admin@admin.com
 - password: 1234
 

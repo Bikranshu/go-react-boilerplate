@@ -4,6 +4,7 @@ import (
 	"./config"
 	"./migrations"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"os"
