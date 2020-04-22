@@ -20,23 +20,23 @@ func InitRoute(db *gorm.DB) *mux.Router {
 		httpSwagger.URL("http://localhost:3000/swagger/doc.json"), //The url pointing to API definition
 	))
 
-	private := r.PathPrefix("/v1").Subrouter()
-	private.Use(middleware.CorsEveryWhere)
-	private .Use(middleware.Authentication)
-	private.Use(middleware.RequestLogger)
+	api := r.PathPrefix("/v1").Subrouter()
+	api.Use(middleware.CorsEveryWhere)
+	api .Use(middleware.Authentication)
+	api.Use(middleware.RequestLogger)
 
 	userRepo := user.NewUserRepository(db)
 	// auth
 	authHandler := handler.NewAuthHandler(userRepo)
-	private.HandleFunc("/auth/login", authHandler.HandleLogin).Methods(http.MethodPost, http.MethodOptions)
+	api.HandleFunc("/auth/login", authHandler.HandleLogin).Methods(http.MethodPost, http.MethodOptions)
 
 	// user
 	userHandler := handler.NewUserHandler(userRepo)
-	private.HandleFunc("/users", userHandler.HandleGetAll).Methods(http.MethodGet)
-	private.HandleFunc("/users", userHandler.HandleStore).Methods(http.MethodPost, http.MethodOptions)
-	private.HandleFunc("/users/{id}", userHandler.HandleGetByID).Methods(http.MethodGet)
-	private.HandleFunc("/users/{id}", userHandler.HandleUpdate).Methods(http.MethodPut, http.MethodOptions)
-	private.HandleFunc("/users/{id}/change-password", userHandler.HandleChangePassword).Methods(http.MethodPut, http.MethodOptions)
+	api.HandleFunc("/users", userHandler.HandleGetAll).Methods(http.MethodGet)
+	api.HandleFunc("/users", userHandler.HandleStore).Methods(http.MethodPost, http.MethodOptions)
+	api.HandleFunc("/users/{id}", userHandler.HandleGetByID).Methods(http.MethodGet)
+	api.HandleFunc("/users/{id}", userHandler.HandleUpdate).Methods(http.MethodPut, http.MethodOptions)
+	api.HandleFunc("/users/{id}/change-password", userHandler.HandleChangePassword).Methods(http.MethodPut, http.MethodOptions)
 
 	return r
 }

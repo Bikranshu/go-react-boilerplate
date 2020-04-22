@@ -19,14 +19,14 @@ On the command prompt run the following commands:
  $ cd go-react-boilerplate
  $ cd src
  $ go get github.com/{package-name}  # Download a particular remote package. See 'go help packages' for details
- $ config.json # Edit it with your secret key and database information
+ $ cp env.yaml.example env.yaml # Edit it with your secret key and database information
  $ swag init [Optional] # Run this command if you add entity CRUD opration
- $ npm install
  ```
  Finally, start and build the application:
  
  ```
- $ go build
+ $ go run main.go
+ $ go build 
 ```
 
 Credential:
@@ -47,6 +47,7 @@ Navigate to http://localhost:3000/swagger/ for the API documentation.
 - Password Hash & Salt - [bcrypt](https://godoc.org/golang.org/x/crypto/bcrypt)
 - Cross Origin Resource Sharing - [CORS](https://github.com/rs/cors)
 - URL router and dispatcher - [gorilla mux](https://github.com/gorilla/mux)
+- Redis Client - [redis](https://github.com/go-redis/redis)
 - API Documentation - [swag](https://github.com/swaggo/swag) and [http-swagger](https://github.com/swaggo/http-swagger)
 - Modern build setup with no configuration - [Create React App](https://create-react-app.dev/)
 - JavaScript library for building UI - [React](https://facebook.github.io/react/)

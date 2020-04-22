@@ -15,7 +15,7 @@ func GenerateToken(userUUID string) (string, error) {
 		"iat": time.Now().Unix(),
 		"sub": userUUID,
 	}
-	tokenString, err := token.SignedString([]byte(viper.GetString("jwt_secret")))
+	tokenString, err := token.SignedString([]byte(viper.GetString("jwt.secret")))
 	if err != nil {
 		return "", errors.New("token generation failed")
 	}
@@ -30,7 +30,7 @@ func DecodeToken(tokenString string) string {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
-		return []byte(viper.GetString("jwt_secret")), nil
+		return []byte(viper.GetString("jwt.secret")), nil
 	})
 	if err != nil {
 		return ""

@@ -39,7 +39,7 @@ func Authentication(mux http.Handler) http.Handler {
 			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 				return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 			}
-			return []byte(viper.GetString("jwt_secret")), nil
+			return []byte(viper.GetString("jwt.secret")), nil
 		})
 
 		if err != nil {
