@@ -18,9 +18,9 @@ On the command prompt run the following commands:
  $ git clone https://github.com/Bikranshu/go-react-boilerplate.git
  $ cd go-react-boilerplate
  $ cd src
- $ go get github.com/{package-name}  # Download a particular remote package. See 'go help packages' for details
- $ cp env.yaml.example env.yaml # Edit it with your secret key and database information
- $ swag init [Optional] # Run this command if you add entity CRUD opration
+ $ go get github.com/{package-name}  # Download a particular remote package.
+ $ cp env.yaml.example env.yaml  # Edit it with your secret key and database information.
+ $ swag init [Optional]  # Run this command if you have added new entity CRUD operation.
  ```
  Finally, start and build the application:
  

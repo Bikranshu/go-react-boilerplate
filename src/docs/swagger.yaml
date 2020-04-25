@@ -12,6 +12,21 @@ definitions:
       token:
         type: string
     type: object
+  user.User:
+    properties:
+      email:
+        type: string
+      first_name:
+        type: string
+      last_login_at:
+        type: string
+      last_name:
+        type: string
+      password:
+        type: string
+      status:
+        type: string
+    type: object
 host: localhost:3000
 info:
   contact: {}
@@ -41,4 +56,123 @@ paths:
       summary: Authenticate a user and receive a JWT Token
       tags:
       - Authentication
+  /v1/users:
+    get:
+      consumes:
+      - application/json
+      description: get users
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/user.User'
+            type: array
+      security:
+      - BearerAuth: []
+      summary: List all users
+      tags:
+      - User
+    post:
+      consumes:
+      - application/json
+      description: create a new user
+      parameters:
+      - description: Create user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/user.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.User'
+      summary: Add a new user
+      tags:
+      - User
+  /v1/users/{id}:
+    get:
+      consumes:
+      - application/json
+      description: get user by ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.User'
+      summary: Find user by ID
+      tags:
+      - User
+    put:
+      consumes:
+      - application/json
+      description: update an existing user by ID
+      operationId: int
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/user.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.User'
+      summary: Update an existing user
+      tags:
+      - User
+  /v1/users/{id}/change-password:
+    put:
+      consumes:
+      - application/json
+      description: update an existing user password by ID
+      operationId: int
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update user password
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/user.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Password changed successfully
+          schema:
+            type: string
+      summary: Update an existing user password by ID
+      tags:
+      - User
+securityDefinitions:
+  BearerAuth:
+    type: basic
 swagger: "2.0"

@@ -25,7 +25,10 @@ func (s service) Login(ctx context.Context, email, password string) (string stri
 	}
 
 	if utils.ValidatePassword(res.Password, password) {
-		token, _ := utils.GenerateToken(email)
+		token, err := utils.GenerateToken(email)
+		if err != nil {
+			return "", err
+		}
 		return token, nil
 	}
 	return "", errors.New("Invalid username or password.")

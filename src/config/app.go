@@ -29,6 +29,5 @@ func RunServer(db *gorm.DB) *http.Server {
 	}
 
 	log.Printf("Server running on %s", conn)
-
 	return srv
 }

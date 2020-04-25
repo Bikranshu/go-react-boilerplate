@@ -6,7 +6,6 @@ import (
 	"encoding/base64"
 	"fmt"
 	log "github.com/sirupsen/logrus"
-	"os"
 	"strings"
 )
 
@@ -41,22 +40,6 @@ func EncodeBase64(plainText string) string {
 func DecodeBase64(cipherText string) (string, error) {
 	decodedText, err := base64.StdEncoding.DecodeString(string(cipherText))
 	return string(decodedText), err
-}
-
-func CreateDirIfNotExist(dir string) {
-	if _, err := os.Stat(dir); os.IsNotExist(err) {
-		err = os.MkdirAll(dir, 0777)
-		if err != nil {
-			panic(err)
-		}
-	}
-}
-
-func DoesFileExist(filename string) bool {
-	if _, err := os.Stat(filename); os.IsNotExist(err) {
-		return false
-	}
-	return true
 }
 
 func GenerateSHA256Hash(plainText string) string {

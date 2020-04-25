@@ -7,12 +7,21 @@ import (
 	"github.com/spf13/viper"
 )
 
-var db *gorm.DB
-var err error
+var dbPrefix = "database"
 
 func DBOpen() *gorm.DB {
-	dbPrefix := "database"
 	dbDriver := viper.GetString(dbPrefix + ".driver")
+	db, err := gorm.Open(dbDriver, buildConnectionOptions(dbDriver))
+
+	if err != nil {
+		log.Fatalf("Error connecting to the database: %s", err.Error())
+	}
+
+	log.Printf("Successfully connected to %s database", dbDriver)
+	return db
+}
+
+func buildConnectionOptions(dbDriver string) string {
 	dbHost := viper.GetString(dbPrefix + ".host")
 	dbPort := viper.GetString(dbPrefix + ".port")
 	dbUser := viper.GetString(dbPrefix + ".user")
@@ -21,17 +30,11 @@ func DBOpen() *gorm.DB {
 	dbSslMode := viper.GetString(dbPrefix + ".sslmode")
 
 	switch dbDriver {
+	case "mysql":
+		return fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", dbUser, dbPassword, dbHost, dbPort, dbName)
 	case "postgres":
-		db, err = gorm.Open(dbDriver, fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=%s", dbHost, dbPort, dbUser, dbName, dbPassword, dbSslMode))
-	default:
-		db, err = gorm.Open(dbDriver, fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", dbUser, dbPassword, dbHost, dbPort, dbName))
+		return fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=%s", dbHost, dbPort, dbUser, dbName, dbPassword, dbSslMode)
 	}
-
-	if err != nil {
-		log.Fatalf("Error connecting to the database: %s", err.Error())
-	}
-
-	log.Println("Successfully connected to database")
-
-	return db
+	log.Printf("%s driver not supported", dbDriver)
+	return ""
 }

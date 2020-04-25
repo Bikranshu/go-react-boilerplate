@@ -17,6 +17,15 @@ func NewUserHandler(repo user.URepository) *userHandler {
 	return &userHandler{service: user.NewUserService(repo)}
 }
 
+// ListUsers godoc
+// @Summary List all users
+// @Description get users
+// @Tags User
+// @Accept  json
+// @Produce  json
+// @Success 200 {array} user.User
+// @Security BearerAuth
+// @Router /v1/users [get]
 func (uh userHandler) HandleGetAll(w http.ResponseWriter, r *http.Request) {
 	u, err := uh.service.FindByAll(r.Context())
 	if err != nil {
@@ -31,6 +40,15 @@ func (uh userHandler) HandleGetAll(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
+// ListUser godoc
+// @Summary Find user by ID
+// @Description get user by ID
+// @Tags User
+// @Accept  json
+// @Produce  json
+// @Param id path int true "User ID"
+// @Success 200 {object} user.User
+// @Router  /v1/users/{id} [get]
 func (uh userHandler) HandleGetByID(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, err := strconv.ParseUint(params["id"], 10, 64)
@@ -51,6 +69,15 @@ func (uh userHandler) HandleGetByID(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
+// CreateUser godoc
+// @Summary Add a new user
+// @Description create a new user
+// @Tags User
+// @Accept  json
+// @Produce  json
+// @Param  user body user.User true "Create user"
+// @Success 200 {object} user.User
+// @Router /v1/users [post]
 func (uh userHandler) HandleStore(w http.ResponseWriter, r *http.Request) {
 	userModel := user.User{}
 	if err := json.NewDecoder(r.Body).Decode(&userModel); err != nil {
@@ -71,6 +98,17 @@ func (uh userHandler) HandleStore(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
+// UpdateUser godoc
+// @Summary Update an existing user
+// @Description update an existing user by ID
+// @ID int
+// @Tags User
+// @Accept  json
+// @Produce  json
+// @Param id path int true "User ID"
+// @Param user body user.User true "Update user"
+// @Success 200 {object} user.User
+// @Router /v1/users/{id} [put]
 func (uh userHandler) HandleUpdate(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, err := strconv.ParseUint(params["id"], 10, 64)
@@ -98,6 +136,17 @@ func (uh userHandler) HandleUpdate(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
+// UpdateUserPassword godoc
+// @Summary Update an existing user password by ID
+// @Description update an existing user password by ID
+// @ID int
+// @Tags User
+// @Accept  json
+// @Produce  json
+// @Param id path int true "User ID"
+// @Param user body user.User true "Update user password"
+// @Success 200 {string} string "Password changed successfully"
+// @Router /v1/users/{id}/change-password [put]
 func (uh userHandler) HandleChangePassword(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, err := strconv.ParseUint(params["id"], 10, 64)

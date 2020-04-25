@@ -25,17 +25,17 @@ func init() {
 // @title Go React Boilerplate
 // @version 1.0.0
 // @description RESTful API description with Swagger
-
 // @host localhost:3000
 // @BasePath /
 
+// @securityDefinitions.bearer BearerAuth
 func main() {
 	// DB binding
 	db := config.DBOpen()
 	defer db.Close()
 
 	// Migrations
-	migrations.InitMigration(db)
+	migrations.Migrate(db)
 
 	// HTTP(s) binding
 	srv := config.RunServer(db)
