@@ -14,7 +14,7 @@ func NewUserRepository(db *gorm.DB) *repo {
 	return &repo{DB: db}
 }
 
-func (r *repo) FindByAll(ctx context.Context) (u []*User, err error) {
+func (r *repo) FindAll(ctx context.Context) (u []*User, err error) {
 
 	result := r.DB.Select("id, first_name, last_name, email, status").Find(&u)
 
@@ -58,7 +58,7 @@ func (r *repo) FindByEmail(ctx context.Context, email string) (u *User, err erro
 	}
 }
 
-func (r *repo) Insert(ctx context.Context, user User) (u *User, err error) {
+func (r *repo) Store(ctx context.Context, user User) (u *User, err error) {
 
 	u = &User{}
 	result := r.DB.Create(&user).Scan(&u)

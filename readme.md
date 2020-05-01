@@ -7,7 +7,8 @@ Go, React and MySQL Boilerplate
 - [Go](https://golang.org/) - Go programming language
 - [NodeJs](https://nodejs.org/en/)
 - [NPM](https://npmjs.org/) - Node package manager
-- [MySQL](https://www.mysql.com/downloads/) - Relational database management system (RDBMS)
+- [MySQL](https://www.mysql.com/) - Relational database management system (RDBMS)
+- [PostgreSQL](https://www.postgresql.org/) - Relational database management system (RDBMS)
 
 ### 2. Installation
 

@@ -31,5 +31,5 @@ func (s service) Login(ctx context.Context, email, password string) (string stri
 		}
 		return token, nil
 	}
-	return "", errors.New("Invalid username or password.")
+	return "", errors.New("Invalid username or password")
 }

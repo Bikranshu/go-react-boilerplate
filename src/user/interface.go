@@ -3,13 +3,13 @@ package user
 import "context"
 
 type Reader interface {
-	FindByAll(ctx context.Context) (u []*User, err error)
+	FindAll(ctx context.Context) (u []*User, err error)
 	FindByID(ctx context.Context, id uint) (u *User, err error)
 	FindByEmail(ctx context.Context, email string) (u *User, err error)
 }
 
 type Writer interface {
-	Insert(ctx context.Context, user User) (u *User, err error)
+	Store(ctx context.Context, user User) (u *User, err error)
 	Update(ctx context.Context, id uint, user User) (u *User, err error)
 	ChangePassword(ctx context.Context, id uint, email, password string) (err error)
 }

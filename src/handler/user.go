@@ -27,7 +27,7 @@ func NewUserHandler(repo user.URepository) *userHandler {
 // @Security BearerAuth
 // @Router /v1/users [get]
 func (uh userHandler) HandleGetAll(w http.ResponseWriter, r *http.Request) {
-	u, err := uh.service.FindByAll(r.Context())
+	u, err := uh.service.FindAll(r.Context())
 	if err != nil {
 		pkg.Wrap(err, w)
 		return
@@ -85,7 +85,7 @@ func (uh userHandler) HandleStore(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	u, err := uh.service.Insert(r.Context(), userModel)
+	u, err := uh.service.Store(r.Context(), userModel)
 	if err != nil {
 		pkg.Wrap(err, w)
 		return

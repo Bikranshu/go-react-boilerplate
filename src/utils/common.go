@@ -54,3 +54,16 @@ func VerifySHA256Hash(cipherText string, plainText string) bool {
 	cipherPlain := base64.URLEncoding.EncodeToString(hashVal.Sum(nil))
 	return strings.EqualFold(cipherPlain, cipherText)
 }
+
+func IndexOf(slice []string, value string) int {
+	for i, v := range slice {
+		if v == value {
+			return i
+		}
+	}
+	return -1
+}
+
+func Contains(slice []string, value string) bool {
+	return IndexOf(slice, value) != -1
+}
