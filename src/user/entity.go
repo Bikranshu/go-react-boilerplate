@@ -2,6 +2,7 @@ package user
 
 import (
 	"../utils"
+	"errors"
 	"github.com/jinzhu/gorm"
 	"time"
 )
@@ -22,9 +23,9 @@ func (user *User) BeforeSave(scope *gorm.Scope) {
 	}
 }
 
-//func (user *User) BeforeCreate(scope *gorm.Scope) (err error) {
-//	if err = scope.DB().Where(&User{Email: user.Email}).First(&user).Error; err == nil {
-//		return errors.New("User already exists in system.")
-//	}
-//	return nil
-//}
+func (user *User) BeforeCreate(scope *gorm.Scope) (err error) {
+	if err = scope.DB().Where(&User{Email: user.Email}).First(&user).Error; err == nil {
+		return errors.New("record already exists")
+	}
+	return nil
+}

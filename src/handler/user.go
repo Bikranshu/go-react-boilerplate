@@ -29,14 +29,11 @@ func NewUserHandler(repo user.URepository) *userHandler {
 func (uh userHandler) HandleGetAll(w http.ResponseWriter, r *http.Request) {
 	u, err := uh.service.FindAll(r.Context())
 	if err != nil {
-		pkg.Wrap(err, w)
+		pkg.Fail(err).ToJSON(w)
 		return
 	}
 
-	json.NewEncoder(w).Encode(map[string]interface{}{
-		"users": u,
-	})
-
+	pkg.OK("User found successfully", u).ToJSON(w)
 	return
 }
 
@@ -53,19 +50,17 @@ func (uh userHandler) HandleGetByID(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, err := strconv.ParseUint(params["id"], 10, 64)
 	if err != nil {
-		pkg.Wrap(err, w)
+		pkg.Fail(err).ToJSON(w)
 		return
 	}
 
 	u, err := uh.service.FindByID(r.Context(), uint(id))
 	if err != nil {
-		pkg.Wrap(err, w)
+		pkg.Fail(err).ToJSON(w)
 		return
 	}
 
-	json.NewEncoder(w).Encode(map[string]interface{}{
-		"users": u,
-	})
+	pkg.OK("User found successfully", u).ToJSON(w)
 	return
 }
 
@@ -81,20 +76,17 @@ func (uh userHandler) HandleGetByID(w http.ResponseWriter, r *http.Request) {
 func (uh userHandler) HandleStore(w http.ResponseWriter, r *http.Request) {
 	userModel := user.User{}
 	if err := json.NewDecoder(r.Body).Decode(&userModel); err != nil {
-		pkg.Wrap(err, w)
+		pkg.Fail(err).ToJSON(w)
 		return
 	}
 
 	u, err := uh.service.Store(r.Context(), userModel)
 	if err != nil {
-		pkg.Wrap(err, w)
+		pkg.Fail(err).ToJSON(w)
 		return
 	}
 
-	json.NewEncoder(w).Encode(map[string]interface{}{
-		"users":   u,
-		"message": "User created successfully.",
-	})
+	pkg.OK("User created successfully", u).ToJSON(w)
 	return
 }
 
@@ -113,26 +105,23 @@ func (uh userHandler) HandleUpdate(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, err := strconv.ParseUint(params["id"], 10, 64)
 	if err != nil {
-		pkg.Wrap(err, w)
+		pkg.Fail(err).ToJSON(w)
 		return
 	}
 
 	userModel := user.User{}
 	if err := json.NewDecoder(r.Body).Decode(&userModel); err != nil {
-		pkg.Wrap(err, w)
+		pkg.Fail(err).ToJSON(w)
 		return
 	}
 
 	u, err := uh.service.Update(r.Context(), uint(id), userModel)
 	if err != nil {
-		pkg.Wrap(err, w)
+		pkg.Fail(err).ToJSON(w)
 		return
 	}
 
-	json.NewEncoder(w).Encode(map[string]interface{}{
-		"users":   u,
-		"message": "User updated successfully.",
-	})
+	pkg.OK("User updated successfully", u).ToJSON(w)
 	return
 }
 
@@ -151,24 +140,21 @@ func (uh userHandler) HandleChangePassword(w http.ResponseWriter, r *http.Reques
 	params := mux.Vars(r)
 	id, err := strconv.ParseUint(params["id"], 10, 64)
 	if err != nil {
-		pkg.Wrap(err, w)
+		pkg.Fail(err).ToJSON(w)
 		return
 	}
 
 	userModel := user.User{}
 	if err := json.NewDecoder(r.Body).Decode(&userModel); err != nil {
-		pkg.Wrap(err, w)
+		pkg.Fail(err).ToJSON(w)
 		return
 	}
 
 	err = uh.service.ChangePassword(r.Context(), uint(id), userModel.Email, userModel.Password)
 	if err != nil {
-		pkg.Wrap(err, w)
+		pkg.Fail(err).ToJSON(w)
 		return
 	}
-
-	json.NewEncoder(w).Encode(map[string]interface{}{
-		"message": "Password changed successfully.",
-	})
+	pkg.OK("Password changed successfully", nil).ToJSON(w)
 	return
 }

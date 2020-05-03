@@ -36,13 +36,13 @@ type Login struct {
 func (ah authHandler) HandleLogin(w http.ResponseWriter, r *http.Request) {
 	var credentials Credentials
 	if err := json.NewDecoder(r.Body).Decode(&credentials); err != nil {
-		pkg.Wrap(err, w)
+		pkg.Fail(err).ToJSON(w)
 		return
 	}
 
 	token, err := ah.service.Login(r.Context(), credentials.Email, credentials.Password)
 	if err != nil {
-		pkg.Wrap(err, w)
+		pkg.Fail(err).ToJSON(w)
 		return
 	}
 

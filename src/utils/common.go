@@ -64,6 +64,6 @@ func IndexOf(slice []string, value string) int {
 	return -1
 }
 
-func Contains(slice []string, value string) bool {
+func ContainsString(slice []string, value string) bool {
 	return IndexOf(slice, value) != -1
 }
