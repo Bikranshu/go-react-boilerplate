@@ -43,6 +43,9 @@ func (s service) Update(ctx context.Context, id uint, user User) (u *User, err e
 
 func (s service) ChangePassword(ctx context.Context, id uint, email, password string) (err error) {
 
-	pw, _ := utils.EncryptPassword(password);
+	pw, err := utils.EncryptPassword(password);
+	if err != nil {
+		return err
+	}
 	return s.repo.ChangePassword(ctx, id, email, pw)
 }

@@ -45,9 +45,8 @@ func (ah authHandler) HandleLogin(w http.ResponseWriter, r *http.Request) {
 		pkg.Fail(err).ToJSON(w)
 		return
 	}
-
-	json.NewEncoder(w).Encode(map[string]interface{}{
+	pkg.OK("", map[string]interface{}{
 		"token": token,
-	})
+	}).ToJSON(w)
 	return
 }

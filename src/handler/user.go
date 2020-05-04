@@ -33,7 +33,7 @@ func (uh userHandler) HandleGetAll(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	pkg.OK("User found successfully", u).ToJSON(w)
+	pkg.OK("", u).ToJSON(w)
 	return
 }
 
@@ -60,7 +60,7 @@ func (uh userHandler) HandleGetByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	pkg.OK("User found successfully", u).ToJSON(w)
+	pkg.OK("", u).ToJSON(w)
 	return
 }
 
