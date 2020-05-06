@@ -15,7 +15,7 @@ func NewUserRepository(db *gorm.DB) *repo {
 
 func (r *repo) FindAll(ctx context.Context) (u []*User, err error) {
 
-	result := r.DB.Select("id, first_name, last_name, email, status").Find(&u)
+	result := r.DB.Find(&u)
 
 	switch result.Error {
 	case nil:
@@ -28,7 +28,7 @@ func (r *repo) FindAll(ctx context.Context) (u []*User, err error) {
 func (r *repo) FindByID(ctx context.Context, id uint) (u *User, err error) {
 
 	u = &User{}
-	result := r.DB.Select("id, first_name, last_name, email, status").Where("id = ?", id).First(u)
+	result := r.DB.Where("id = ?", id).First(u)
 
 	switch result.Error {
 	case nil:
@@ -54,7 +54,8 @@ func (r *repo) FindByEmail(ctx context.Context, email string) (u *User, err erro
 func (r *repo) Store(ctx context.Context, user User) (u *User, err error) {
 
 	u = &User{}
-	result := r.DB.Create(&user).Scan(&u)
+	result := r.DB.Create(&user).Find(&u)
+
 	switch result.Error {
 	case nil:
 		return u, nil
@@ -84,9 +85,7 @@ func (r *repo) Update(ctx context.Context, id uint, user User) (u *User, err err
 func (r *repo) ChangePassword(ctx context.Context, id uint, email, password string) (err error) {
 
 	u := &User{}
-	result := r.DB.Table("users").Where("id = ? AND email = ?", id, email).Find(u).Update(map[string]interface{}{
-		"password": password,
-	})
+	result := r.DB.Model(u).Where("id = ? AND email = ?", id, email).First(u).UpdateColumn("password", password)
 
 	switch result.Error {
 	case nil:

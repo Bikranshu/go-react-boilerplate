@@ -46,7 +46,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `created_at`, `updated_at`, `deleted_at`, `first_name`, `last_name`, `email`, `password`, `status`, `last_login_at`) VALUES
-(4, '2020-04-22 09:10:43', '2020-04-22 09:10:43', NULL, 'Krishna', 'Timilsina', 'admin@admin.com', '$2a$04$MQhn1LYi7vOqafPfjy5CXO3SQykxeMm4kZxn7bLscU.w.1Hxq51y2', 'active', NULL);
+(1, '2020-04-22 09:10:43', '2020-04-22 09:10:43', NULL, 'Krishna', 'Timilsina', 'admin@admin.com', '$2a$04$MQhn1LYi7vOqafPfjy5CXO3SQykxeMm4kZxn7bLscU.w.1Hxq51y2', 'active', NULL);
 
 --
 -- Indexes for dumped tables
@@ -68,7 +68,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

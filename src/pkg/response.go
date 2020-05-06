@@ -5,7 +5,6 @@ import (
 	"errors"
 	"net/http"
 	"strings"
-	"../utils"
 )
 
 type response struct {
@@ -44,7 +43,6 @@ func (r response) ToJSON(w http.ResponseWriter) error {
 
 // OK returns a successful response.
 func OK(message string, data interface{}) *response {
-	utils.OmitHiddenFields(data)
 	return newResponse(true, message, data, http.StatusOK)
 }
 

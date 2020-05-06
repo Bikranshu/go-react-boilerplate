@@ -144,7 +144,7 @@ func (uh userHandler) HandleChangePassword(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
-	userModel := user.User{}
+	var userModel user.User
 	if err := json.NewDecoder(r.Body).Decode(&userModel); err != nil {
 		pkg.Fail(err).ToJSON(w)
 		return
@@ -155,6 +155,7 @@ func (uh userHandler) HandleChangePassword(w http.ResponseWriter, r *http.Reques
 		pkg.Fail(err).ToJSON(w)
 		return
 	}
+
 	pkg.OK("Password changed successfully", nil).ToJSON(w)
 	return
 }
