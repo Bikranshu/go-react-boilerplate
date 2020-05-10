@@ -13,8 +13,8 @@ func NewUserRepository(db *gorm.DB) *repo {
 	return &repo{DB: db}
 }
 
-func (r *repo) FindAll(ctx context.Context) (u []*User, err error) {
-
+func (r *repo) FindAll(ctx context.Context) (u *Users, err error) {
+	u = &Users{}
 	result := r.DB.Find(&u)
 
 	switch result.Error {

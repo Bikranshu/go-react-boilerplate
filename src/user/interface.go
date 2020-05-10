@@ -3,7 +3,7 @@ package user
 import "context"
 
 type Reader interface {
-	FindAll(ctx context.Context) (u []*User, err error)
+	FindAll(ctx context.Context) (u *Users, err error)
 	FindByID(ctx context.Context, id uint) (u *User, err error)
 	FindByEmail(ctx context.Context, email string) (u *User, err error)
 }

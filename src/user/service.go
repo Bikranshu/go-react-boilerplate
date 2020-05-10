@@ -6,7 +6,7 @@ import (
 )
 
 type Service interface {
-	FindAll(ctx context.Context) ([]*User, error)
+	FindAll(ctx context.Context) (*Users, error)
 	FindByID(ctx context.Context, id uint) (*User, error)
 
 	Store(ctx context.Context, user User) (*User, error)
@@ -21,7 +21,7 @@ func NewUserService(r URepository) *service {
 	return &service{repo: r}
 }
 
-func (s service) FindAll(ctx context.Context) (u []*User, err error) {
+func (s service) FindAll(ctx context.Context) (u *Users, err error) {
 
 	return s.repo.FindAll(ctx)
 }

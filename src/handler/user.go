@@ -27,13 +27,13 @@ func NewUserHandler(repo user.URepository) *userHandler {
 // @Security BearerAuth
 // @Router /v1/users [get]
 func (uh userHandler) HandleGetAll(w http.ResponseWriter, r *http.Request) {
-	u, err := uh.service.FindAll(r.Context())
+	users, err := uh.service.FindAll(r.Context())
 	if err != nil {
 		pkg.Fail(err).ToJSON(w)
 		return
 	}
 
-	pkg.OK("", u).ToJSON(w)
+	pkg.OK("", users.PublicUsers()).ToJSON(w)
 	return
 }
 
@@ -54,13 +54,13 @@ func (uh userHandler) HandleGetByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	u, err := uh.service.FindByID(r.Context(), uint(id))
+	user, err := uh.service.FindByID(r.Context(), uint(id))
 	if err != nil {
 		pkg.Fail(err).ToJSON(w)
 		return
 	}
 
-	pkg.OK("", u).ToJSON(w)
+	pkg.OK("", user.PublicUser()).ToJSON(w)
 	return
 }
 
@@ -80,13 +80,13 @@ func (uh userHandler) HandleStore(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	u, err := uh.service.Store(r.Context(), userModel)
+	user, err := uh.service.Store(r.Context(), userModel)
 	if err != nil {
 		pkg.Fail(err).ToJSON(w)
 		return
 	}
 
-	pkg.OK("User created successfully", u).ToJSON(w)
+	pkg.OK("User created successfully", user.PublicUser()).ToJSON(w)
 	return
 }
 
@@ -115,13 +115,13 @@ func (uh userHandler) HandleUpdate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	u, err := uh.service.Update(r.Context(), uint(id), userModel)
+	user, err := uh.service.Update(r.Context(), uint(id), userModel)
 	if err != nil {
 		pkg.Fail(err).ToJSON(w)
 		return
 	}
 
-	pkg.OK("User updated successfully", u).ToJSON(w)
+	pkg.OK("User updated successfully", user.PublicUser()).ToJSON(w)
 	return
 }
 

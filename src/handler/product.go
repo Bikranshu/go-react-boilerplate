@@ -91,7 +91,7 @@ func (ph productHandler) HandleStore(w http.ResponseWriter, r *http.Request) {
 }
 
 // UpdateProduct godoc
-// @Summary Update an existing product
+// @Summary Update an existing product by ID
 // @Description update an existing product by ID
 // @ID int
 // @Tags Product
