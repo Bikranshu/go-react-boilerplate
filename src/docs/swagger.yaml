@@ -12,12 +12,39 @@ definitions:
       token:
         type: string
     type: object
+  product.Product:
+    properties:
+      code:
+        type: string
+      created_at:
+        type: string
+      created_by:
+        type: integer
+      deleted_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      status:
+        type: string
+      updated_at:
+        type: string
+    type: object
   user.User:
     properties:
+      created_at:
+        type: string
+      deleted_at:
+        type: string
       email:
         type: string
       first_name:
         type: string
+      id:
+        type: integer
       last_login_at:
         type: string
       last_name:
@@ -25,6 +52,8 @@ definitions:
       password:
         type: string
       status:
+        type: string
+      updated_at:
         type: string
     type: object
 host: localhost:3000
@@ -56,6 +85,94 @@ paths:
       summary: Authenticate a user and receive a JWT Token
       tags:
       - Authentication
+  /v1/products:
+    get:
+      consumes:
+      - application/json
+      description: get products
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/product.Product'
+            type: array
+      security:
+      - BearerAuth: []
+      summary: List all products
+      tags:
+      - Product
+    post:
+      consumes:
+      - application/json
+      description: create a new product
+      parameters:
+      - description: Create product
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/product.Product'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.Product'
+      summary: Add a new product
+      tags:
+      - Product
+  /v1/products/{id}:
+    get:
+      consumes:
+      - application/json
+      description: get product by ID
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.Product'
+      summary: Find product by ID
+      tags:
+      - Product
+    put:
+      consumes:
+      - application/json
+      description: update an existing product by ID
+      operationId: int
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update product
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/product.Product'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.Product'
+      summary: Update an existing product
+      tags:
+      - Product
   /v1/users:
     get:
       consumes:
@@ -141,7 +258,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/user.User'
-      summary: Update an existing user
+      summary: Update an existing user by ID
       tags:
       - User
   /v1/users/{id}/change-password:
@@ -172,7 +289,4 @@ paths:
       summary: Update an existing user password by ID
       tags:
       - User
-securityDefinitions:
-  BearerAuth:
-    type: basic
 swagger: "2.0"

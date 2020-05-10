@@ -91,7 +91,7 @@ func (uh userHandler) HandleStore(w http.ResponseWriter, r *http.Request) {
 }
 
 // UpdateUser godoc
-// @Summary Update an existing user
+// @Summary Update an existing user by ID
 // @Description update an existing user by ID
 // @ID int
 // @Tags User

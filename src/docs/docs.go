@@ -58,6 +58,141 @@ var doc = `{
                 }
             }
         },
+        "/v1/products": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "get products",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "List all products",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/product.Product"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "create a new product",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Add a new product",
+                "parameters": [
+                    {
+                        "description": "Create product",
+                        "name": "product",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/product.Product"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/product.Product"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/products/{id}": {
+            "get": {
+                "description": "get product by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Find product by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/product.Product"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "update an existing product by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Update an existing product",
+                "operationId": "int",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update product",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/product.Product"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/product.Product"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/users": {
             "get": {
                 "security": [
@@ -163,7 +298,7 @@ var doc = `{
                 "tags": [
                     "User"
                 ],
-                "summary": "Update an existing user",
+                "summary": "Update an existing user by ID",
                 "operationId": "int",
                 "parameters": [
                     {
@@ -256,14 +391,55 @@ var doc = `{
                 }
             }
         },
+        "product.Product": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "created_by": {
+                    "type": "integer"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
         "user.User": {
             "type": "object",
             "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
                 "email": {
                     "type": "string"
                 },
                 "first_name": {
                     "type": "string"
+                },
+                "id": {
+                    "type": "integer"
                 },
                 "last_login_at": {
                     "type": "string"
@@ -276,13 +452,11 @@ var doc = `{
                 },
                 "status": {
                     "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
                 }
             }
-        }
-    },
-    "securityDefinitions": {
-        "BearerAuth": {
-            "type": "basic"
         }
     }
 }`
